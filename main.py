@@ -24,6 +24,23 @@ def quinta(v):
     down = x**2
     return ((1/x) - 1) * up / down
 
-print(integral(cuarta, 1)(100000))
+first = integral(cuarta, 1)
 
-print(integral(quinta, 2)(1000000))
+print("# 1")
+print("------------")
+print()
+
+print("100: " + str(first(100)))
+print("10000: " + str(first(10000)))
+print("1000000: " + str(first(1000000)))
+
+print()
+print("# 2")
+print("------------")
+print()
+
+second = integral(quinta, 2)
+
+print("100: " + str(second(100)))
+print("10000: " + str(second(10000)))
+print("1000000: " + str(second(1000000)))
