@@ -1,8 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.ticker import PercentFormatter
 import sys
 import random
 import math
+import time
 
 G1MOD = math.pow(2,35) - 1
 G1MULTIPLIER = math.pow(5,5)
@@ -24,30 +26,31 @@ def generator1(x):
 def generator2(x):
   return (G2MULTIPLIER * gen1(x-1)) % G2MOD
 
-def test_generator(generator, iterations):
-  for i in range(iterations):
-    generator(i)
-
 if __name__ == "__main__":
   iterations = sys.argv[1]
-  seed = sys.argv[2]
+  # get seed based on time
+  seed1 = (time.time() * 1000) % G1MOD
+  seed2 = (time.time() * 1000) % G2MOD
   # normal random
   normal = np.random.rand(int(iterations))
   # first generator random
-  gen1 = memoize(generator1, int(seed))
+  gen1 = memoize(generator1, int(seed1))
   g1 = np.array([gen1(i) for i in range(int(iterations))]) / G1MOD
   # second generator randoms
-  gen2 = memoize(generator2, int(seed))
+  gen2 = memoize(generator2, int(seed2))
   g2 = np.array([gen2(i) for i in range(int(iterations))]) / G2MOD
 
   # Start plot
   plt.figure(1)
   plt.title('Math.random')
-  plt.hist(normal)
+  plt.hist(normal, weights=np.ones(len(normal)) / len(normal))
+  plt.gca().yaxis.set_major_formatter(PercentFormatter(1))
   plt.figure(2)
   plt.title('First Generator')
-  g1plot = plt.hist(g1)
+  plt.hist(g1, weights=np.ones(len(g1)) / len(g1))
+  plt.gca().yaxis.set_major_formatter(PercentFormatter(1))
   plt.figure(3)
   plt.title('Second Generator')
-  g2plot = plt.hist(g2)
+  plt.hist(g2, weights=np.ones(len(g2)) / len(g2))
+  plt.gca().yaxis.set_major_formatter(PercentFormatter(1))
   plt.show()
