@@ -1,4 +1,4 @@
-const point_width = 5;
+const point_width = 1;
 const SCALE = 500;
 
 const rules = [

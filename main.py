@@ -1,6 +1,7 @@
 import random
 import math
 
+
 def integral(f, d):
     def aproximation(iteration):
         cumalative = 0
@@ -12,11 +13,13 @@ def integral(f, d):
         return cumalative / iteration
     return aproximation
 
+
 def cuarta(v):
     (x, ) = v
-    up = math.exp(-(1/x -1) ** 2)
+    up = math.exp(-(1/x - 1) ** 2)
     down = x ** 2
     return 2 * up / down
+
 
 def quinta(v):
     x, y = v
